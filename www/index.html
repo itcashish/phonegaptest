@@ -45,10 +45,11 @@
     <title>Hello World Ashish</title>
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript">
-       function callA(){
+ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktype';
+      const get = async () => {
+              // do the API call and get JSON response
 
-         url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktype';
-         $.ajax({
+              $.ajax({
                       type: "GET",
                       url: url,
                       cache: false,
@@ -57,15 +58,90 @@
                         //ons.notification.alert(data);
                         addOption(JSON.parse(data));
                       },
-                      error: function (Xhr, textStatus, errorMessage) {
+                      error: function (Xhr, textStatus, errorMessage) { 
                                 ons.notification.alert(errorMessage);
                             }
                     });
-       }
+              let url1 = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktrainer'; 
+              $.ajax({
+                      type: "GET",
+                      url: url1,
+                      cache: false,
+                      crossDomain: true,
+                      success: function(data,status,xhr){
+                        //ons.notification.alert(data);
+                        addOption1(JSON.parse(data));
+                      },
+                      error: function (Xhr, textStatus, errorMessage) { 
+                                ons.notification.alert(errorMessage);
+                            }
+                    });
+           
+           };
+		// PhoneGap event handler
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            console.log("PhoneGap is ready");
+            get();
+       };
+       function Save(){
+        
+        var wdate = document.getElementById('wdate').value
+        var wtype = document.getElementById('wtype').value
+        var wtrainer = document.getElementById('wtrainer').value
+         var acalories = document.getElementById('acalories').value
+         var totalcalories = document.querySelector('#totalcalories').value;
+         var totaltime = document.querySelector('#totaltime').value;
+         var bpm = document.querySelector('#bpm').value;
+         var lowbpm = document.querySelector('#lowbpm').value;
+         var highbpm = document.querySelector('#highbpm').value;
+         var starttime = document.querySelector('#starttime').value;
+         var endtime = document.querySelector('#endtime').value;
+         var remark = document.querySelector('#remark').value;
 
-        function addOption(tydata) {
-
-
+          
+         wdata = {};
+         wdata.wdate = wdate;
+         wdata.wtype = wtype;
+         wdata.wtrainer = wtrainer;
+         wdata.acalories = acalories;
+         wdata.totalcalories = totalcalories;
+         wdata.totaltime = totaltime;
+         wdata.bpm = bpm;
+         wdata.lowbpm = lowbpm;
+         wdata.highbpm = highbpm;
+         wdata.starttime = starttime;
+         wdata.endtime = endtime;
+         wdata.remark = remark;
+         wdata.rectype = 'workout';
+         //ons.notification.alert(JSON.stringify(wdata));
+        let url2 = 'http://www.patelashish.com/apps/workout/saveexp.asp'; 
+              $.ajax({
+                      type: "POST",
+                      url: url2,
+                      cache: false,
+                      crossDomain: true,
+                      data: wdata,
+                      success: function(data,status,xhr){
+                          ons.notification.alert(data);
+                          document.getElementById('acalories').value = '';
+                          document.querySelector('#totalcalories').value = '';
+                          document.querySelector('#totaltime').value = '';
+                          document.querySelector('#bpm').value = '';
+                          document.querySelector('#lowbpm').value = '';
+                          document.querySelector('#highbpm').value = '';
+                          document.querySelector('#starttime').value = '';
+                          document.querySelector('#endtime').value = '';
+                          document.querySelector('#remark').value = '';
+                                          
+                      },
+                      error: function (Xhr, textStatus, errorMessage) { 
+                                ons.notification.alert(errorMessage);
+                            }
+                    });
+      };
+  
+      function addOption(tydata) { 
 
           var n = 1
           var x = document.getElementById("wtype");
@@ -74,32 +150,33 @@
               var c = document.createElement("option");
               c.text = tydata.Data[d].TYNAME;
               c.value = tydata.Data[d].ID;
-
+              
               x.options.add(c, n);
               n = n + 1;
-
-            }
+              
+            }	
         } ;
+      
+      function addOption1(tydata) { 
+
+          var n = 1
+          var x = document.getElementById("wtrainer");
+          for (d in tydata.Data) {
+              //document.getElementById("demo").innerHTML += myObj[x];
+              var c = document.createElement("option");
+              c.text = tydata.Data[d].tyname;
+              c.value = tydata.Data[d].id;
+              x.options.add(c, n);
+              n = n + 1;
+              
+            }	
+        }
 
     </script>
 </head>
 
 <body>
-    <div class="app">
-        <h1>PhoneGap</h1>
-        <div id="deviceready" class="blink">
-            <p class="event listening">Connecting to Device</p>
-            <p class="event received">Device is Ready</p>
-        </div>
-        <div>
-          <select id="wtype">
-              <option>A</option>
 
-          </select>
-          <p></p>
-          <input type="button" value="Submit" onclick="callA()">
-        </div>
-    </div>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
@@ -107,6 +184,76 @@
         app.initialize();
     </script>
 
+
+	<ons-page>
+
+		<ons-card>
+
+			<ons-toolbar>
+				<div class="center">Daily Workout Details</div>
+			</ons-toolbar>
+      <div class="title">
+      Awesome framework
+    </div>
+			<div class="center" class="content">
+        <p></p>
+				<p>
+					<ons-input type="date" id="wdate" placeholder="Date" modifier="underbar"  ></ons-input>
+				</p>
+				<p>
+					<ons-select id="wtype"></ons-select>
+				</p>
+				<p>
+
+					<ons-select id="wtrainer"></ons-select>
+
+				</p>
+
+				<p>
+					<ons-input type="number" id="acalories" placeholder="Active Calories" modifier="underbar"  ></ons-input>
+				</p>
+
+				<p>
+					<ons-input type="number" id="totalcalories" placeholder="Total Calories" modifier="underbar"  ></ons-input>
+				</p>
+
+				<p>
+					<ons-input type="number" id="totaltime" placeholder="Total Time" modifier="underbar"  ></ons-input>
+				</p>
+
+				<p>
+					<ons-input type="number" id="bpm" placeholder="Average Heart Beat" modifier="underbar"  ></ons-input>
+			</p>
+
+      <p>
+
+        <ons-input type="number" id="lowbpm" placeholder="low Heart Beat" modifier="underbar"  ></ons-input>
+			</p>
+
+       <p>
+				   <ons-input type="number" id="highbpm" placeholder="High Heart Beat" modifier="underbar"  ></ons-input>
+			</p>
+
+      <p>
+				  <ons-input type="time" id="starttime" placeholder="Start Time " modifier="underbar"  ></ons-input>   
+
+			</p>
+      <p>
+			
+          <ons-input type="time" id="endtime" placeholder="End Time " modifier="underbar"  ></ons-input>
+			</p>
+
+      <p>
+				  <ons-input  id="remark" placeholder="Remark" modifier="underbar"  ></ons-input>
+			</p>
+
+			<p>
+				<ons-button onclick="Save()">Save</ons-button>
+			</p>
+
+		</div>
+		  </ons-card>
+	</ons-page>
 </body>
 
 </html>
