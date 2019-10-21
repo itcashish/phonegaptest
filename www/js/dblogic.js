@@ -11,11 +11,11 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
                         //ons.notification.alert(data);
                         addOption(JSON.parse(data));
                       },
-                      error: function (Xhr, textStatus, errorMessage) { 
-                                ons.notification.alert(errorMessage);
+                      error: function (Xhr, textStatus, errorMessage) {
+                                alert(errorMessage);
                             }
                     });
-              let url1 = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktrainer'; 
+              let url1 = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktrainer';
               $.ajax({
                       type: "GET",
                       url: url1,
@@ -25,11 +25,11 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
                         //ons.notification.alert(data);
                         addOption1(JSON.parse(data));
                       },
-                      error: function (Xhr, textStatus, errorMessage) { 
-                                ons.notification.alert(errorMessage);
+                      error: function (Xhr, textStatus, errorMessage) {
+                                alert(errorMessage);
                             }
                     });
-           
+
            };
 		// PhoneGap event handler
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -38,7 +38,7 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
             get();
        };
        function Save(){
-        
+
         var wdate = document.getElementById('wdate').value
         var wtype = document.getElementById('wtype').value
         var wtrainer = document.getElementById('wtrainer').value
@@ -52,7 +52,7 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
          var endtime = document.querySelector('#endtime').value;
          var remark = document.querySelector('#remark').value;
 
-          
+
          wdata = {};
          wdata.wdate = wdate;
          wdata.wtype = wtype;
@@ -68,7 +68,7 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
          wdata.remark = remark;
          wdata.rectype = 'workout';
          //ons.notification.alert(JSON.stringify(wdata));
-        let url2 = 'http://www.patelashish.com/apps/workout/saveexp.asp'; 
+        let url2 = 'http://www.patelashish.com/apps/workout/saveexp.asp';
               $.ajax({
                       type: "POST",
                       url: url2,
@@ -76,7 +76,7 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
                       crossDomain: true,
                       data: wdata,
                       success: function(data,status,xhr){
-                          ons.notification.alert(data);
+                          alert(data);
                           document.getElementById('acalories').value = '';
                           document.querySelector('#totalcalories').value = '';
                           document.querySelector('#totaltime').value = '';
@@ -86,15 +86,15 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
                           document.querySelector('#starttime').value = '';
                           document.querySelector('#endtime').value = '';
                           document.querySelector('#remark').value = '';
-                                          
+
                       },
-                      error: function (Xhr, textStatus, errorMessage) { 
-                                ons.notification.alert(errorMessage);
+                      error: function (Xhr, textStatus, errorMessage) {
+                                alert(errorMessage);
                             }
                     });
       };
-  
-      function addOption(tydata) { 
+
+      function addOption(tydata) {
 
           var n = 1
           var x = document.getElementById("wtype");
@@ -103,14 +103,14 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
               var c = document.createElement("option");
               c.text = tydata.Data[d].TYNAME;
               c.value = tydata.Data[d].ID;
-              
+
               x.options.add(c, n);
               n = n + 1;
-              
-            }	
+
+            }
         } ;
-      
-      function addOption1(tydata) { 
+
+      function addOption1(tydata) {
 
           var n = 1
           var x = document.getElementById("wtrainer");
@@ -121,6 +121,6 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
               c.value = tydata.Data[d].id;
               x.options.add(c, n);
               n = n + 1;
-              
-            }	
+
+            }
         }
