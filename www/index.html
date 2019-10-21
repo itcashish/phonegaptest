@@ -1,263 +1,163 @@
 <!DOCTYPE html>
-<!--
-    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
-
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
+  <head>
+      <meta charset="utf-8" />
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="msapplication-tap-highlight" content="no" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+      <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+      <title>Workout</title>
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <script src="js/jquery-3.4.1.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/dblogic.js"></script>
+      <script src="js/index.js"></script>
+      <script src="js/popper.js"></script>
+  </head>
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
-    <!-- Good default declaration:
-    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-        * Enable inline JS: add 'unsafe-inline' to default-src
-        * Enable eval(): add 'unsafe-eval' to default-src
-    * Create your own at http://cspisawesome.com
-    -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
-
-   	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-	<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-    
-    <title>Hello World Ashish</title>
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript">
- let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktype';
-      const get = async () => {
-              // do the API call and get JSON response
-
-              $.ajax({
-                      type: "GET",
-                      url: url,
-                      cache: false,
-                      crossDomain: true,
-                      success: function(data,status,xhr){
-                        //ons.notification.alert(data);
-                        addOption(JSON.parse(data));
-                      },
-                      error: function (Xhr, textStatus, errorMessage) { 
-                                ons.notification.alert(errorMessage);
-                            }
-                    });
-              let url1 = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktrainer'; 
-              $.ajax({
-                      type: "GET",
-                      url: url1,
-                      cache: false,
-                      crossDomain: true,
-                      success: function(data,status,xhr){
-                        //ons.notification.alert(data);
-                        addOption1(JSON.parse(data));
-                      },
-                      error: function (Xhr, textStatus, errorMessage) { 
-                                ons.notification.alert(errorMessage);
-                            }
-                    });
-           
-           };
-		// PhoneGap event handler
-        document.addEventListener("deviceready", onDeviceReady, false);
-        function onDeviceReady() {
-            console.log("PhoneGap is ready");
-            get();
-       };
-       function Save(){
-        
-        var wdate = document.getElementById('wdate').value
-        var wtype = document.getElementById('wtype').value
-        var wtrainer = document.getElementById('wtrainer').value
-         var acalories = document.getElementById('acalories').value
-         var totalcalories = document.querySelector('#totalcalories').value;
-         var totaltime = document.querySelector('#totaltime').value;
-         var bpm = document.querySelector('#bpm').value;
-         var lowbpm = document.querySelector('#lowbpm').value;
-         var highbpm = document.querySelector('#highbpm').value;
-         var starttime = document.querySelector('#starttime').value;
-         var endtime = document.querySelector('#endtime').value;
-         var remark = document.querySelector('#remark').value;
-
-          
-         wdata = {};
-         wdata.wdate = wdate;
-         wdata.wtype = wtype;
-         wdata.wtrainer = wtrainer;
-         wdata.acalories = acalories;
-         wdata.totalcalories = totalcalories;
-         wdata.totaltime = totaltime;
-         wdata.bpm = bpm;
-         wdata.lowbpm = lowbpm;
-         wdata.highbpm = highbpm;
-         wdata.starttime = starttime;
-         wdata.endtime = endtime;
-         wdata.remark = remark;
-         wdata.rectype = 'workout';
-         //ons.notification.alert(JSON.stringify(wdata));
-        let url2 = 'http://www.patelashish.com/apps/workout/saveexp.asp'; 
-              $.ajax({
-                      type: "POST",
-                      url: url2,
-                      cache: false,
-                      crossDomain: true,
-                      data: wdata,
-                      success: function(data,status,xhr){
-                          ons.notification.alert(data);
-                          document.getElementById('acalories').value = '';
-                          document.querySelector('#totalcalories').value = '';
-                          document.querySelector('#totaltime').value = '';
-                          document.querySelector('#bpm').value = '';
-                          document.querySelector('#lowbpm').value = '';
-                          document.querySelector('#highbpm').value = '';
-                          document.querySelector('#starttime').value = '';
-                          document.querySelector('#endtime').value = '';
-                          document.querySelector('#remark').value = '';
-                                          
-                      },
-                      error: function (Xhr, textStatus, errorMessage) { 
-                                ons.notification.alert(errorMessage);
-                            }
-                    });
-      };
-  
-      function addOption(tydata) { 
-
-          var n = 1
-          var x = document.getElementById("wtype");
-          for (d in tydata.Data) {
-              //document.getElementById("demo").innerHTML += myObj[x];
-              var c = document.createElement("option");
-              c.text = tydata.Data[d].TYNAME;
-              c.value = tydata.Data[d].ID;
-              
-              x.options.add(c, n);
-              n = n + 1;
-              
-            }	
-        } ;
-      
-      function addOption1(tydata) { 
-
-          var n = 1
-          var x = document.getElementById("wtrainer");
-          for (d in tydata.Data) {
-              //document.getElementById("demo").innerHTML += myObj[x];
-              var c = document.createElement("option");
-              c.text = tydata.Data[d].tyname;
-              c.value = tydata.Data[d].id;
-              x.options.add(c, n);
-              n = n + 1;
-              
-            }	
-        }
-
-    </script>
-</head>
-
-<body>
+  <body>
+    <body class="bg-light">
+      <div class="container">
+    <div class="py-2 text-center">
+      <h3>Workout Entry</h3>
+    </div>
 
 
-    <script type="text/javascript" src="cordova.js"></script>
+      <div class="order-md-1">
+
+        <form class="needs-validation" novalidate>
+          <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                ...
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="wdate">Date</label>
+            <input type="Date" class="form-control" id="wdate" placeholder="Date" value="" required>
+            <div class="invalid-feedback">
+              Date is required.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="wtype">Training Type</label>
+            <select class="custom-select d-block w-100" id="wtype" required>
+              <option value="">Choose...</option>
+              <option>United States</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid Workout Type.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="wtrainer">Trainer Name</label>
+            <select class="custom-select d-block w-100" id="wtrainer" required>
+              <option value="">Choose...</option>
+              <option>Deep</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid Trainer Name.
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="acalories">Active Calories / Total Calories </label>
+                <input type="number" class="form-control" id="acalories" placeholder="Active Calories" value="0" required>
+                <div class="invalid-feedback">
+                  Active Calories is required.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="totalcalories">Total Calories</label>
+              <input type="number" class="form-control" id="totalcalories" placeholder="Total Calories" value="0" required>
+              <div class="invalid-feedback">
+                Total Calories is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="totaltime">Total Time</label>
+            <input type="text" class="form-control" id="totaltime" placeholder="Total Time" value="0" required>
+            <div class="invalid-feedback">
+              Total Time is required.
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="bpm">Average BPM</label>
+                <input type="number" class="form-control" id="bpm" placeholder="Average BPM" value="0" required>
+                <div class="invalid-feedback">
+                  Average BPM is required.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="lowbpm">Low BPM</label>
+                <input type="number" class="form-control" id="lowbpm" placeholder="Low BPM" value="0" >
+                <div class="invalid-feedback">
+                  Low BPM is required.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="highbpm">High BPM</label>
+                <input type="number" class="form-control" id="highbpm" placeholder="High BPM" value="0" >
+                <div class="invalid-feedback">
+                  Low BPM is required.
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="starttime">Start Time</label>
+                <input type="time" class="form-control" id="starttime" placeholder="Start Time" value="07:00:00" >
+                <div class="invalid-feedback">
+                  Start Time is required.
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="endtime">End Time</label>
+              <input type="time" class="form-control" id="endtime" placeholder="End Time" value="07:00:00" >
+              <div class="invalid-feedback">
+                End Time is required.
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="remark">Date</label>
+            <input type="text" class="form-control" id="remark" placeholder="Date" value="" >
+            <div class="invalid-feedback">
+              Remark is required.
+            </div>
+          </div>
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block" type="button" onclick="Save()" >Add</button>
+        </form>
+      </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">&copy; 2017-2019 Company Name</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Support</a></li>
+      </ul>
+    </footer>
+  </div>
+</body>
+
+  <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
         app.initialize();
-    </script>
-
-
-	<ons-page>
-
-		<ons-card>
-
-			<ons-toolbar>
-				<div class="center">Daily Workout Details</div>
-			</ons-toolbar>
-      <div class="title">
-      Awesome framework
-    </div>
-			<div class="center" class="content">
-        <p></p>
-				<p>
-					<ons-input type="date" id="wdate" placeholder="Date" modifier="underbar"  ></ons-input>
-				</p>
-				<p>
-					<ons-select id="wtype"></ons-select>
-				</p>
-				<p>
-
-					<ons-select id="wtrainer"></ons-select>
-
-				</p>
-
-				<p>
-					<ons-input type="number" id="acalories" placeholder="Active Calories" modifier="underbar"  ></ons-input>
-				</p>
-
-				<p>
-					<ons-input type="number" id="totalcalories" placeholder="Total Calories" modifier="underbar"  ></ons-input>
-				</p>
-
-				<p>
-					<ons-input type="number" id="totaltime" placeholder="Total Time" modifier="underbar"  ></ons-input>
-				</p>
-
-				<p>
-					<ons-input type="number" id="bpm" placeholder="Average Heart Beat" modifier="underbar"  ></ons-input>
-			</p>
-
-      <p>
-
-        <ons-input type="number" id="lowbpm" placeholder="low Heart Beat" modifier="underbar"  ></ons-input>
-			</p>
-
-       <p>
-				   <ons-input type="number" id="highbpm" placeholder="High Heart Beat" modifier="underbar"  ></ons-input>
-			</p>
-
-      <p>
-				  <ons-input type="time" id="starttime" placeholder="Start Time " modifier="underbar"  ></ons-input>   
-
-			</p>
-      <p>
-			
-          <ons-input type="time" id="endtime" placeholder="End Time " modifier="underbar"  ></ons-input>
-			</p>
-
-      <p>
-				  <ons-input  id="remark" placeholder="Remark" modifier="underbar"  ></ons-input>
-			</p>
-
-			<p>
-				<ons-button onclick="Save()">Save</ons-button>
-			</p>
-
-		</div>
-		<div id="deviceready" class="blink">
-            <p class="event listening">Connecting to Device</p>
-            <p class="event received">Device is Ready</p>
-        </div>
-		  </ons-card>
-	</ons-page>
+  </script>
 </body>
 
 </html>
