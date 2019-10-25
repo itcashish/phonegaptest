@@ -1,6 +1,13 @@
-let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktype';
+      
+		// PhoneGap event handler
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            console.log("PhoneGap is ready");
+            get();
+       };
+       let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910&q=wktype';
       const get = async () => {
-              // do the API call and get JSON response
+              // do the API call and get JSON response
 
               $.ajax({
                       type: "GET",
@@ -30,7 +37,7 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
                             }
                     });
 
-           };
+           };
 		// PhoneGap event handler
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
@@ -158,3 +165,5 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
 
             }
         }
+    
+     
