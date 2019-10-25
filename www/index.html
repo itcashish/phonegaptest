@@ -6,7 +6,7 @@
       <meta name="msapplication-tap-highlight" content="no" />
       <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
       <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
-      <title>Workout</title>
+      <title>F Notes</title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <script src="js/jquery-3.4.1.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
@@ -36,102 +36,26 @@
 
           <div class="mb-3">
             <label for="wdate">Date</label>
-            <input type="Date" class="form-control" id="wdate" placeholder="Date" value="" required>
+            <input type="Date" class="form-control" id="edate" placeholder="Date" value="" required>
             <div class="invalid-feedback">
               Date is required.
             </div>
           </div>
 
+         
+            <div class="col-md-4 mb-3">
+                <label for="acalories">Amount</label>
+                <input type="number" class="form-control" id="acalories" placeholder="Amount" value="0">
+                <div class="invalid-feedback">
+                  Amount is required.
+                </div>
+            </div>
+
+         
+         
           <div class="mb-3">
-            <label for="wtype">Training Type</label>
-            <select class="custom-select d-block w-100" id="wtype" required>
-              <option value="">Choose...</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid Workout Type.
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="wtrainer">Trainer Name</label>
-            <select class="custom-select d-block w-100" id="wtrainer" required>
-              <option value="">Choose...</option>
-              <option>Deep</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid Trainer Name.
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4 mb-3">
-                <label for="acalories">Active Calories / Total Calories </label>
-                <input type="number" class="form-control" id="acalories" placeholder="Active Calories" value="0" required>
-                <div class="invalid-feedback">
-                  Active Calories is required.
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="totalcalories">Total Calories</label>
-              <input type="number" class="form-control" id="totalcalories" placeholder="Total Calories" value="0" required>
-              <div class="invalid-feedback">
-                Total Calories is required.
-              </div>
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="totaltime">Total Time</label>
-            <input type="text" class="form-control" id="totaltime" placeholder="Total Time" value="0" required>
-            <div class="invalid-feedback">
-              Total Time is required.
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4 mb-3">
-              <label for="bpm">Average BPM</label>
-                <input type="number" class="form-control" id="bpm" placeholder="Average BPM" value="0" required>
-                <div class="invalid-feedback">
-                  Average BPM is required.
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="lowbpm">Low BPM</label>
-                <input type="number" class="form-control" id="lowbpm" placeholder="Low BPM" value="0" >
-                <div class="invalid-feedback">
-                  Low BPM is required.
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="highbpm">High BPM</label>
-                <input type="number" class="form-control" id="highbpm" placeholder="High BPM" value="0" >
-                <div class="invalid-feedback">
-                  Low BPM is required.
-                </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4 mb-3">
-                <label for="starttime">Start Time</label>
-                <input type="time" class="form-control" id="starttime" placeholder="Start Time" value="07:00:00" >
-                <div class="invalid-feedback">
-                  Start Time is required.
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-              <label for="endtime">End Time</label>
-              <input type="time" class="form-control" id="endtime" placeholder="End Time" value="07:00:00" >
-              <div class="invalid-feedback">
-                End Time is required.
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="remark">Date</label>
-            <input type="text" class="form-control" id="remark" placeholder="Date" value="" >
+            <label for="remark">Remarks</label>
+            <input type="text" class="form-control" id="remark" placeholder="Remarks" value="" >
             <div class="invalid-feedback">
               Remark is required.
             </div>
