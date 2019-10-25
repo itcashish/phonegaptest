@@ -93,6 +93,40 @@ let url = 'http://www.patelashish.com/apps/workout/dataout.asp?apikey=5647382910
                             }
                     });
       };
+	function Save1(){
+
+         var edate = document.getElementById('edate').value
+         var amount = document.getElementById('amount').value
+         var remark = document.getElementById('remark').value
+         
+
+
+         wdata = {};
+         wdata.edate = edate;
+         wdata.amount = amount;
+         wdata.remark = remark;
+        
+         wdata.rectype = 'fnotes';
+         //ons.notification.alert(JSON.stringify(wdata));
+        let url2 = 'http://www.patelashish.com/apps/workout/saveexpm.asp';
+              $.ajax({
+                      type: "POST",
+                      url: url2,
+                      cache: false,
+                      crossDomain: true,
+                      data: wdata,
+                      success: function(data,status,xhr){
+                          alert(data);
+                          document.getElementById('amount').value = '';
+                          document.querySelector('#remark').value = '';
+                          
+
+                      },
+                      error: function (Xhr, textStatus, errorMessage) {
+                                alert(errorMessage);
+                            }
+                    });
+      };
 
       function addOption(tydata) {
 
